@@ -33,14 +33,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install codacy-coverage
+        pip install pytest
         cp decide/local_settings.gactions.py decide/local_settings.py
-        
+
     - name: Run tests
       run: |
         cd decide
-        coverage run --branch --source=. ./manage.py test  --keepdb 
-        coverage xml 
-  
+        pytest --cov=decide --cov-report=xml
+        
   cobertura:
     runs-on: -ubuntu-latest
     needs: build
